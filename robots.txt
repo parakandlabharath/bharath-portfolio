@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://parakandlabharath.github.io/bharath-portfolio/sitemap.xml
