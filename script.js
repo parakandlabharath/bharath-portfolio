@@ -67,3 +67,28 @@ if ("IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-mot
 }
 
 document.getElementById("year").textContent = new Date().getFullYear();
+
+const roleText = document.getElementById("role-text");
+const roleNames = ["Java Full-Stack Developer","Backend Developer","Java Developer"];
+if(roleText && !window.matchMedia("(prefers-reduced-motion: reduce)").matches){
+ let roleIndex=0;
+ window.setInterval(()=>{
+  roleIndex=(roleIndex+1)%roleNames.length;
+  roleText.animate([{opacity:1,transform:"translateY(0)"},{opacity:0,transform:"translateY(-7px)"}],{duration:160,fill:"forwards"}).onfinish=()=>{
+   roleText.textContent=roleNames[roleIndex];
+   roleText.animate([{opacity:0,transform:"translateY(7px)"},{opacity:1,transform:"translateY(0)"}],{duration:260,fill:"forwards"});
+  };
+ },3200);
+}
+const sectionLinks=[...document.querySelectorAll('.nav-links a[href^="#"]')];
+const observedSections=sectionLinks.map(link=>document.querySelector(link.getAttribute("href"))).filter(Boolean);
+if("IntersectionObserver" in window){
+ const sectionObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{
+  if(!entry.isIntersecting)return;
+  sectionLinks.forEach(link=>{
+   if(link.getAttribute("href")==="#"+entry.target.id)link.setAttribute("aria-current","location");
+   else link.removeAttribute("aria-current");
+  });
+ }),{rootMargin:"-30% 0px -60% 0px"});
+ observedSections.forEach(section=>sectionObserver.observe(section));
+}
