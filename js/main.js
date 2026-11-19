@@ -6,12 +6,14 @@
   const $ = (selector, scope = document) => scope.querySelector(selector);
   const $$ = (selector, scope = document) => [...scope.querySelectorAll(selector)];
   let lenis = null;
+  let introTimeline = null;
   let toastTimer = null;
 
   function initTheme() {
     const button = $('.theme-toggle');
     const saved = localStorage.getItem('bharath-theme');
     if (saved === 'light') root.dataset.theme = 'light';
+    button?.setAttribute('aria-label', saved === 'light' ? 'Switch to dark theme' : 'Switch to light theme');
     button?.addEventListener('click', () => {
       const light = root.dataset.theme !== 'light';
       root.dataset.theme = light ? 'light' : 'dark';
@@ -69,10 +71,17 @@
     const title = $('.hero-title');
     if (!title) return;
     const finish = () => title.classList.add('ready');
-    const skip = () => { finish(); $('.hero-bottom')?.classList.add('intro-visible'); };
+    const skipButton = $('.intro-skip');
+    const skip = () => {
+      introTimeline?.kill(); finish();
+      if (window.gsap) gsap.set(['.eyebrow','.hero-bottom','.header-inner'], {clearProps:'all',opacity:1,y:0});
+      sessionStorage.setItem('bharath-intro-seen','1');
+      if (skipButton) skipButton.hidden = true;
+    };
     const alreadySeen = sessionStorage.getItem('bharath-intro-seen');
-    if (reduced || alreadySeen) { finish(); return; }
-    const intro = gsap?.timeline({defaults:{ease:'power4.out'}, onComplete:() => sessionStorage.setItem('bharath-intro-seen','1')});
+    if (reduced || alreadySeen) { finish(); if (skipButton) skipButton.hidden = true; return; }
+    if (skipButton) { skipButton.hidden = false; skipButton.addEventListener('click', skip, {once:true}); }
+    const intro = introTimeline = gsap?.timeline({defaults:{ease:'power4.out'}, onComplete:() => { sessionStorage.setItem('bharath-intro-seen','1'); if (skipButton) skipButton.hidden = true; }});
     if (!intro) { finish(); return; }
     intro.call(finish).from('.eyebrow', {y:14,opacity:0,duration:.35}, 0)
       .from('.hero-bottom', {y:22,opacity:0,duration:.5}, .35)
