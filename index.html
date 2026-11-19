@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Portfolio of Parakandla Bharath — Java Full-Stack and Backend Developer. Explore projects, skills, education and contact details.">
   <meta name="theme-color" content="#0b1020">
+  <meta name="color-scheme" content="dark light">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://parakandlabharath.github.io/bharath-portfolio/">
   <meta property="og:title" content="Parakandla Bharath | Java Full-Stack Developer">
   <meta property="og:description" content="Java, Spring Boot, REST APIs and practical software projects.">
   <title>Parakandla Bharath | Java Full-Stack Developer</title>
@@ -15,6 +18,7 @@
   <script src="script.js" defer></script>
 </head>
 <body>
+  <div class="scroll-progress" aria-hidden="true"><span id="scroll-progress-bar"></span></div>
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header">
     <nav class="nav container" aria-label="Main navigation">
@@ -28,7 +32,7 @@
     </nav>
   </header>
   <main id="main">
-    <section class="hero section container" id="home">
+    <section class="hero section container" id="home" data-reveal>
       <div class="hero-copy">
         <p class="eyebrow"><span class="status-dot"></span> OPEN TO ENTRY-LEVEL OPPORTUNITIES</p>
         <p class="intro">Hello, I'm</p>
@@ -55,9 +59,9 @@
         <div class="floating-chip chip-java">☕ Java</div><div class="floating-chip chip-spring">✳ Spring Boot</div><div class="floating-chip chip-api">⌘ REST APIs</div>
       </div>
     </section>
-    <section class="section container" id="about">
+    <section class="section container" id="about" data-reveal>
       <div class="section-heading"><p class="eyebrow">A LITTLE ABOUT ME</p><h2>Building with purpose.<br><span class="muted">Learning with curiosity.</span></h2></div>
-      <div class="about-grid"><div class="about-text">
+      <div class="about-grid" data-reveal><div class="about-text">
         <p>I’m a Computer Science graduate from K K R & K S R Institute of Technology and Sciences, with an interest in Java-based application development and backend engineering.</p>
         <p>My focus is on strengthening Core Java, object-oriented programming, SQL, Spring Boot and API development while building projects that solve understandable, real-world problems.</p>
         <p>I value readable code, practical problem-solving, continuous learning and being able to explain the design decisions behind my work.</p>
@@ -70,7 +74,7 @@
     </section>
     <section class="section section-alt" id="skills"><div class="container">
       <div class="section-heading"><p class="eyebrow">WHAT I WORK WITH</p><h2>Technical <span class="gradient-text">toolkit.</span></h2><p class="section-subtitle">Technologies and concepts I have worked with or am actively developing.</p></div>
-      <div class="skills-grid">
+      <div class="skills-grid" data-reveal>
         <article class="skill-card"><div class="skill-icon">☕</div><h3>Languages</h3><div class="tags"><span>Java</span><span>JavaScript</span><span>C++</span></div></article>
         <article class="skill-card"><div class="skill-icon">▣</div><h3>Backend</h3><div class="tags"><span>Spring</span><span>Spring Boot</span><span>Node.js</span><span>REST APIs</span><span>JSON</span></div></article>
         <article class="skill-card"><div class="skill-icon">◇</div><h3>Frontend</h3><div class="tags"><span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>React</span></div></article>
@@ -78,9 +82,9 @@
         <article class="skill-card"><div class="skill-icon">⌘</div><h3>Core Concepts</h3><div class="tags"><span>OOP</span><span>DSA</span><span>DBMS</span><span>Operating Systems</span><span>Computer Networks</span></div></article>
         <article class="skill-card"><div class="skill-icon">⚙</div><h3>Engineering</h3><div class="tags"><span>API Design</span><span>Debugging</span><span>Validation</span><span>System Design Basics</span></div></article>
       </div></div></section>
-    <section class="section container" id="projects">
+    <section class="section container" id="projects" data-reveal>
       <div class="section-heading"><p class="eyebrow">SELECTED WORK</p><h2>Projects that turn<br><span class="muted">ideas into applications.</span></h2><p class="section-subtitle">A selection of projects and prototypes. Open the repositories for source code and implementation details.</p></div>
-      <div class="projects-grid">
+      <div class="projects-grid" data-reveal>
         <article class="project-card project-featured"><div class="project-top"><span class="project-number">01 / COMMUNITY SAFETY</span><span class="project-symbol">⌁</span></div><h3>Mana Suraksha</h3><p class="project-summary">A digital-safety project concept focused on helping users understand suspicious SMS messages, links and calls, with reporting workflows and Telugu–English accessibility.</p><div class="tags"><span>Java</span><span>Backend</span><span>Database</span><span>Web / Android concept</span></div><ul class="project-points"><li>Organized modules for SMS, links, calls and user reports.</li><li>Includes API, database, workflow and system-design documentation.</li><li>Prototype scope; not presented as a production security service.</li></ul><a class="project-link" href="https://github.com/parakandlabharath/Mana-Suraksha" target="_blank" rel="noreferrer">View repository <span>↗</span></a></article>
         <article class="project-card"><div class="project-top"><span class="project-number">02 / LEARNING PLATFORM</span><span class="project-symbol">⌘</span></div><h3>Code Quest</h3><p class="project-summary">A browser-based coding practice playground with interactive lessons, JavaScript challenges, learner progress and optional AI-assisted learning features.</p><div class="tags"><span>React</span><span>TypeScript</span><span>Vite</span><span>Express</span></div><ul class="project-points"><li>Practice challenges and learner-focused interface.</li><li>Progress data with JSON export/import.</li><li>Code execution is disabled until an isolated judge is implemented.</li></ul><a class="project-link" href="https://github.com/parakandlabharath/Code-Quest" target="_blank" rel="noreferrer">View repository <span>↗</span></a></article>
         <article class="project-card"><div class="project-top"><span class="project-number">03 / PRODUCT WATCHLIST</span><span class="project-symbol">◈</span></div><h3>Online Price Tracking</h3><p class="project-summary">A product watchlist and target-price organizer designed to help users save products, review observations and manage shopping notes.</p><div class="tags"><span>React</span><span>TypeScript</span><span>Node.js</span><span>Express</span></div><ul class="project-points"><li>Watchlist, filters, product details and backup/restore.</li><li>Optional AI shopping assistant.</li><li>Live retailer price feeds are not yet integrated.</li></ul><a class="project-link" href="https://github.com/parakandlabharath/Online-price-tracking" target="_blank" rel="noreferrer">View repository <span>↗</span></a></article>
@@ -91,11 +95,11 @@
     </section>
     <section class="section section-alt" id="experience"><div class="container narrow">
       <div class="section-heading"><p class="eyebrow">PRACTICAL EXPOSURE</p><h2>Learning through <span class="gradient-text">experience.</span></h2></div>
-      <div class="timeline"><div class="timeline-item"><span class="timeline-date">May 2023 — July 2023</span><h3>Java Full-Stack Development Intern</h3><p class="timeline-org">IIIDT – Blackbucks</p><p>Participated in a Java Full-Stack Development internship. Add your exact tasks, technologies used and outcomes here before publishing a more detailed experience description.</p></div></div>
+      <div class="timeline" data-reveal><div class="timeline-item"><span class="timeline-date">May 2023 — July 2023</span><h3>Java Full-Stack Development Intern</h3><p class="timeline-org">IIIDT – Blackbucks</p><p>Participated in a Java Full-Stack Development internship. Add your exact tasks, technologies used and outcomes here before publishing a more detailed experience description.</p></div></div>
     </div></section>
-    <section class="section container" id="education">
+    <section class="section container" id="education" data-reveal>
       <div class="section-heading"><p class="eyebrow">ACADEMIC BACKGROUND</p><h2>Education & <span class="gradient-text">learning.</span></h2></div>
-      <div class="education-card"><div class="education-icon">◎</div><div class="education-main"><span class="timeline-date">2022 — 2026</span><h3>Bachelor of Technology — Computer Science and Engineering</h3><p>K K R & K S R Institute of Technology and Sciences</p><p class="education-location">Vinjanampadu, Guntur, Andhra Pradesh</p><div class="tags"><span>CGPA: 7.60</span><span>Data Structures & Algorithms</span><span>DBMS</span><span>Operating Systems</span><span>Computer Networks</span><span>Software Engineering</span></div></div></div>
+      <div class="education-card" data-reveal><div class="education-icon">◎</div><div class="education-main"><span class="timeline-date">2022 — 2026</span><h3>Bachelor of Technology — Computer Science and Engineering</h3><p>K K R & K S R Institute of Technology and Sciences</p><p class="education-location">Vinjanampadu, Guntur, Andhra Pradesh</p><div class="tags"><span>CGPA: 7.60</span><span>Data Structures & Algorithms</span><span>DBMS</span><span>Operating Systems</span><span>Computer Networks</span><span>Software Engineering</span></div></div></div>
     </section>
     <section class="section contact-section" id="contact"><div class="container contact-content">
       <p class="eyebrow">LET'S CONNECT</p><h2>Have an opportunity<br>or an idea? <span class="gradient-text">Let's talk.</span></h2>
@@ -104,6 +108,7 @@
       <div class="contact-links"><a href="https://github.com/parakandlabharath" target="_blank" rel="noreferrer">GitHub</a><a href="https://www.linkedin.com/in/bharath-kumar-181316296/" target="_blank" rel="noreferrer">LinkedIn</a></div>
     </div></section>
   </main>
+  <button class="back-to-top" type="button" aria-label="Back to top" title="Back to top">↑</button>
   <footer class="footer"><div class="container footer-inner"><a class="brand" href="#home"><span class="brand-mark">B</span><span>Bharath<span class="brand-dot">.</span></span></a><p>Designed & built with care by Parakandla Bharath.</p><p>© <span id="year"></span> Bharath. All rights reserved.</p></div></footer>
 </body>
 </html>
