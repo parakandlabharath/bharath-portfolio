@@ -1,6 +1,7 @@
 /* Small, readable enhancements. Content remains visible if this file fails. */
 (() => {
   const root = document.documentElement;
+  root.classList.add('js');
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
   const $ = (selector, scope = document) => scope.querySelector(selector);
