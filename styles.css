@@ -27,3 +27,28 @@
 .footer{background:var(--bg)}
 @media(max-width:650px){.back-to-top{right:16px;bottom:16px}.hero-visual{overflow:visible}[data-reveal]{transform:translateY(14px)}}
 @media(prefers-reduced-motion:reduce){[data-reveal]{opacity:1;transform:none;transition:none}.skill-card,.fact,.project-card,.back-to-top{transition:none}}
+
+/* Premium but restrained motion and recruiter-friendly polish */
+body{overflow-x:hidden}
+.hero{position:relative;isolation:isolate}
+.hero:before{content:"";position:absolute;z-index:-1;width:520px;height:520px;left:-190px;top:5%;border-radius:50%;background:radial-gradient(circle,rgba(124,140,255,.13),transparent 68%);pointer-events:none;animation:ambient-drift 12s ease-in-out infinite alternate}
+.hero:after{content:"";position:absolute;z-index:-1;width:380px;height:380px;right:-110px;bottom:0;border-radius:50%;background:radial-gradient(circle,rgba(72,214,198,.09),transparent 70%);pointer-events:none;animation:ambient-drift 15s ease-in-out infinite alternate-reverse}
+@keyframes ambient-drift{from{transform:translate3d(0,-12px,0) scale(.96)}to{transform:translate3d(22px,18px,0) scale(1.06)}}
+.role-caret{display:inline-block;width:2px;height:1.05em;margin-left:7px;vertical-align:-.14em;background:var(--accent-2);animation:caret-blink 1s steps(2,start) infinite}
+@keyframes caret-blink{to{visibility:hidden}}
+.hero .eyebrow,.hero .intro,.hero h1,.hero-role,.hero-description,.hero-actions,.social-links{animation:rise-in .7s both}
+.hero .intro{animation-delay:.08s}.hero h1{animation-delay:.15s}.hero-role{animation-delay:.22s}.hero-description{animation-delay:.29s}.hero-actions,.hero .social-links{animation-delay:.36s}
+.hero-visual{animation:visual-enter .9s .15s both}
+@keyframes rise-in{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes visual-enter{from{opacity:0;transform:translateY(18px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+.code-card{animation:card-float 7s ease-in-out infinite}
+@keyframes card-float{0%,100%{transform:translateY(0) rotate(1deg)}50%{transform:translateY(-8px) rotate(-.3deg)}}
+.floating-chip{animation:chip-float 5s ease-in-out infinite}.chip-spring{animation-delay:-1.6s}.chip-api{animation-delay:-3.1s}
+@keyframes chip-float{0%,100%{translate:0 0}50%{translate:0 -7px}}
+.nav-links a{position:relative}.nav-links a:not(.nav-cta):after{content:"";position:absolute;left:0;right:100%;bottom:-5px;height:2px;background:var(--accent-2);transition:right .2s}
+.nav-links a:not(.nav-cta):hover:after,.nav-links a[aria-current="location"]:after{right:0}
+.project-card:focus-within{border-color:var(--accent);box-shadow:var(--shadow)}
+.contact-section{position:relative;overflow:hidden}
+.contact-section:before{content:"";position:absolute;width:420px;height:420px;left:-240px;top:-240px;border:1px solid var(--line);border-radius:50%;box-shadow:0 0 0 35px rgba(124,140,255,.025),0 0 0 70px rgba(124,140,255,.02);pointer-events:none}
+@media(max-width:650px){.hero:before{width:300px;height:300px}.hero:after{width:260px;height:260px}.code-card,.floating-chip{animation:none}}
+@media(prefers-reduced-motion:reduce){.hero:before,.hero:after,.code-card,.floating-chip,.hero .eyebrow,.hero .intro,.hero h1,.hero-role,.hero-description,.hero-actions,.social-links,.hero-visual,.role-caret{animation:none!important}.hero .eyebrow,.hero .intro,.hero h1,.hero-role,.hero-description,.hero-actions,.social-links,.hero-visual{opacity:1;transform:none}}
