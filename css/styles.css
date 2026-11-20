@@ -20,3 +20,11 @@
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.js .reveal,.js .hero-title .name-line>*{opacity:1!important;transform:none!important}.cursor{display:none!important}}
 
 .intro-skip{position:fixed;z-index:55;right:var(--gutter);top:94px;border:1px solid var(--line);background:var(--surface);padding:9px 12px;color:var(--muted);font:9px var(--mono);cursor:pointer}.intro-skip:hover{color:var(--text);border-color:var(--accent)}@media(max-width:700px){.intro-skip{top:80px}}
+
+/* Animated compass orbit — subtle motion in the hero blueprint */
+.compass-dot-orbit{position:absolute;width:230px;height:230px;border-radius:50%;pointer-events:none;animation:compass-orbit 24s linear infinite}
+.compass-dot{position:absolute;top:-4px;left:50%;width:7px;height:7px;border-radius:50%;background:var(--accent);transform:translateX(-50%);box-shadow:0 0 8px var(--accent),0 0 20px color-mix(in srgb,var(--accent) 50%,transparent)}
+.compass-dot-orbit::after{content:"";position:absolute;top:0;left:50%;width:1px;height:22px;transform:translateX(-50%);background:linear-gradient(var(--accent),transparent)}
+.blueprint-mark:hover .compass-dot-orbit{animation-duration:8s}
+@keyframes compass-orbit{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.compass-dot-orbit{animation:none!important}.compass-dot{display:none}}
