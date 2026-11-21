@@ -1,7 +1,9 @@
 (() => {
  const body=document.body, menu=document.querySelector('.menu'), mobile=document.querySelector('.mobile-nav'), theme=document.querySelector('.theme');
+ const savedTheme=(()=>{try{return localStorage.getItem('portfolio-theme')}catch{return null}})();
+ if(savedTheme==='dark'){body.classList.add('dark');if(theme){theme.textContent='☀';theme.setAttribute('aria-label','Switch to light theme');theme.setAttribute('aria-pressed','true')}}
  const year=document.querySelector('#year');if(year)year.textContent=new Date().getFullYear();
- theme?.addEventListener('click',()=>{body.classList.toggle('dark');theme.textContent=body.classList.contains('dark')?'☀':'◐';theme.setAttribute('aria-label',body.classList.contains('dark')?'Switch to light theme':'Switch to dark theme')});
+ theme?.addEventListener('click',()=>{body.classList.toggle('dark');const dark=body.classList.contains('dark');theme.textContent=dark?'☀':'◐';theme.setAttribute('aria-label',dark?'Switch to light theme':'Switch to dark theme');theme.setAttribute('aria-pressed',String(dark));try{localStorage.setItem('portfolio-theme',dark?'dark':'light')}catch{}});
  const closeMenu=()=>{mobile?.classList.remove('open');menu?.setAttribute('aria-expanded','false');if(menu){menu.textContent='☰';menu.setAttribute('aria-label','Open menu')}};
  menu?.addEventListener('click',()=>{const open=menu.getAttribute('aria-expanded')!=='true';menu.setAttribute('aria-expanded',String(open));mobile?.classList.toggle('open',open);menu.textContent=open?'×':'☰';menu.setAttribute('aria-label',open?'Close menu':'Open menu')});
  mobile?.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeMenu));
