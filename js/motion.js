@@ -107,16 +107,43 @@
   }
 
   // Mark nav links as active based on the visible section.
+  const nav = document.querySelector(".desktop-nav");
   const navLinks = document.querySelectorAll(".desktop-nav a");
   const navSections = [...navLinks].map(link => document.querySelector(link.getAttribute("href"))).filter(Boolean);
-  if ("IntersectionObserver" in window && navLinks.length) {
-    const navObserver = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        navLinks.forEach(link => link.classList.toggle("glass-active-link", link.getAttribute("href") === "#" + entry.target.id));
-      });
-    }, { rootMargin: "-25% 0px -60% 0px" });
-    navSections.forEach(section => navObserver.observe(section));
+  let navIndicator;
+  if (nav && navLinks.length) {
+    navIndicator = document.createElement("span");
+    navIndicator.className = "glass-nav-indicator";
+    navIndicator.setAttribute("aria-hidden", "true");
+    nav.prepend(navIndicator);
+    // The active pill moves with transforms instead of animating its width.
+    const moveIndicator = link => {
+      if (!link || !navIndicator) return;
+      const x = link.offsetLeft;
+      const w = link.offsetWidth;
+      navIndicator.style.transform = "translate(" + x + "px,-50%) scaleX(" + w + ")";
+    };
+    navLinks.forEach(link => link.addEventListener("focus", () => moveIndicator(link)));
+    window.addEventListener("resize", () => {
+      const active = [...navLinks].find(link => link.classList.contains("glass-active-link"));
+      if (active) moveIndicator(active);
+    });
+    if ("IntersectionObserver" in window) {
+      const navObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          navLinks.forEach(link => {
+            const active = link.getAttribute("href") === "#" + entry.target.id;
+            link.classList.toggle("glass-active-link", active);
+            if (active) moveIndicator(link);
+          });
+        });
+      }, { rootMargin: "-25% 0px -60% 0px" });
+      navSections.forEach(section => navObserver.observe(section));
+    } else {
+      navLinks[0]?.classList.add("glass-active-link");
+      moveIndicator(navLinks[0]);
+    }
   }
 
   // Make the header glass stronger after scrolling and hide it while scrolling down.
