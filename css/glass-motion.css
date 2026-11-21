@@ -122,3 +122,17 @@ a:hover .glass-arrow,button:hover .glass-arrow{transform:translateX(3px)}
 @media(prefers-reduced-transparency:reduce),(prefers-contrast:more){
   .glass-liquid{background-image:none;box-shadow:0 12px 28px var(--glass-shadow),inset 0 1px 0 var(--glass-highlight)}
 }
+
+/* PURE LIQUID GLASS THEME — no ambient or motion effects, only translucent surfaces. */
+.glass-ambient,.glass-cursor,.glass-progress{display:none!important}
+.glass-sheen::after,.glass-hover:hover,.glass-magnetic,.glass-arrow,.glass-link::after{animation:none!important;transition:none!important}
+.glass-hover:hover{transform:none!important}
+.js .glass-reveal,.js .glass-reveal.is-in,.js .glass-hero-line,.js .glass-hero-line.is-in,.js .glass-hero-item,.js .glass-hero-item.is-in{opacity:1!important;transform:none!important;clip-path:none!important;transition:none!important}
+.glass-nav.nav-hidden{transform:none!important}
+.glass-nav-indicator{display:none!important}
+.glass-diagram .flow-line{stroke-dashoffset:0!important;transition:none!important}
+.glass-diagram .flow-node{opacity:1!important;transition:none!important}
+.glass-diagram .flow-dot{display:none!important;animation:none!important}
+.glass-liquid{backdrop-filter:blur(22px) saturate(165%)!important;-webkit-backdrop-filter:blur(22px) saturate(165%)!important;background-image:linear-gradient(145deg,rgba(255,255,255,.13),transparent 34%,rgba(255,106,43,.035) 100%),linear-gradient(180deg,rgba(255,255,255,.055),transparent 38%)!important;border:1px solid rgba(255,255,255,.2)!important;box-shadow:0 12px 34px var(--glass-shadow),inset 0 1px 0 rgba(255,255,255,.35),inset 0 -1px 0 rgba(255,255,255,.06)!important}
+:root[data-theme="light"] .glass-liquid{background-image:linear-gradient(145deg,rgba(255,255,255,.85),transparent 34%,rgba(255,106,43,.025) 100%),linear-gradient(180deg,rgba(255,255,255,.6),transparent 38%)!important;border-color:rgba(255,255,255,.82)!important;box-shadow:0 12px 34px rgba(20,20,30,.08),inset 0 1px 0 rgba(255,255,255,.95),inset 0 -1px 0 rgba(255,255,255,.25)!important}
+@media(max-width:767px){.glass-liquid{backdrop-filter:blur(12px) saturate(150%)!important;-webkit-backdrop-filter:blur(12px) saturate(150%)!important}}
