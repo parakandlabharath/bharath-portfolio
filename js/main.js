@@ -243,3 +243,138 @@
     });
   }
 })();
+/* Pass 3: browser-only mini demos, clearly separated from the real project APIs. */
+(() => {
+  const board = document.getElementById("kanban-demo");
+  const terminal = document.getElementById("rest-terminal");
+  if (!board) return;
+
+  const initialTasks = [
+    { id: 1, title: "Prepare project notes", status: "todo" },
+    { id: 2, title: "Create API outline", status: "todo" },
+    { id: 3, title: "Build task route", status: "doing" },
+    { id: 4, title: "Review task flow", status: "done" }
+  ];
+  let tasks = initialTasks.map(task => ({ ...task }));
+  const statusNames = { todo: "TODO", doing: "IN_PROGRESS", done: "DONE" };
+  const columnNames = ["todo", "doing", "done"];
+
+  // Render the task cards and keep each move available as a regular button.
+  function renderBoard() {
+    columnNames.forEach(status => {
+      const list = board.querySelector('[data-list="' + status + '"]');
+      const count = board.querySelector('[data-column="' + status + '"] [data-count]');
+      if (!list) return;
+      list.innerHTML = "";
+      const matching = tasks.filter(task => task.status === status);
+      if (count) count.textContent = matching.length;
+      matching.forEach(task => {
+        const card = document.createElement("div");
+        card.className = "kanban-task";
+        card.tabIndex = 0;
+        card.draggable = true;
+        card.dataset.taskId = task.id;
+        card.textContent = task.title;
+        card.setAttribute("aria-label", task.title + ", " + statusNames[status]);
+        card.addEventListener("dragstart", event => {
+          card.classList.add("dragging");
+          event.dataTransfer?.setData("text/plain", String(task.id));
+          if (event.dataTransfer) event.dataTransfer.effectAllowed = "move";
+        });
+        card.addEventListener("dragend", () => card.classList.remove("dragging"));
+        card.addEventListener("keydown", event => {
+          if (event.key === " " || event.key === "Enter") {
+            event.preventDefault();
+            moveTask(task.id, nextStatus(status));
+          }
+        });
+        const controls = document.createElement("div");
+        controls.className = "task-controls";
+        const move = document.createElement("button");
+        move.type = "button";
+        move.textContent = status === "done" ? "Move to To Do" : "Move →";
+        move.setAttribute("aria-label", "Move " + task.title + " to " + (status === "todo" ? "In Progress" : status === "doing" ? "Done" : "To Do"));
+        move.addEventListener("click", () => moveTask(task.id, nextStatus(status)));
+        controls.append(move);
+        card.append(controls);
+        list.append(card);
+      });
+    });
+  }
+
+  function nextStatus(current) {
+    const index = columnNames.indexOf(current);
+    return columnNames[(index + 1) % columnNames.length];
+  }
+
+  function moveTask(taskId, newStatus) {
+    const task = tasks.find(item => item.id === taskId);
+    if (!task) return;
+    task.status = newStatus;
+    renderBoard();
+    if (terminal) {
+      terminal.textContent = 'PATCH /api/tasks/' + task.id + '\n{\n  "status": "' + statusNames[newStatus] + '"\n}\n\n200 OK\n{\n  "id": ' + task.id + ',\n  "status": "' + statusNames[newStatus] + '"\n}';
+    }
+  }
+
+  // Allow cards to be dragged to a different status column.
+  board.querySelectorAll(".kanban-column").forEach(column => {
+    const list = column.querySelector(".kanban-list");
+    list?.addEventListener("dragover", event => {
+      event.preventDefault();
+      list.classList.add("drag-target");
+    });
+    list?.addEventListener("dragleave", () => list.classList.remove("drag-target"));
+    list?.addEventListener("drop", event => {
+      event.preventDefault();
+      list.classList.remove("drag-target");
+      const id = Number(event.dataTransfer?.getData("text/plain"));
+      moveTask(id, column.dataset.list);
+    });
+  });
+
+  board.querySelector("[data-board-reset]")?.addEventListener("click", () => {
+    tasks = initialTasks.map(task => ({ ...task }));
+    renderBoard();
+    if (terminal) terminal.textContent = 'POST /api/tasks\n{\n  "title": "Prepare project notes"\n}\n\n201 Created\n{\n  "id": 1,\n  "status": "TODO"\n}';
+  });
+  renderBoard();
+
+  // Simulate a price changing in fixed steps. It is not connected to a store.
+  const slider = document.getElementById("target-price");
+  const priceText = document.getElementById("sim-price");
+  const targetText = document.getElementById("target-display");
+  const statusText = document.getElementById("price-status");
+  const noteText = document.getElementById("price-note");
+  const stepButton = document.getElementById("price-step");
+  const resetButton = document.querySelector("[data-price-reset]");
+  if (!slider || !priceText || !targetText || !statusText || !noteText || !stepButton) return;
+
+  let currentPrice = 1200;
+  const startingPrice = 1200;
+  const startingTarget = 900;
+  const money = value => "₹" + value.toLocaleString("en-IN");
+
+  function updatePriceDemo() {
+    const target = Number(slider.value);
+    targetText.textContent = money(target);
+    priceText.textContent = money(currentPrice);
+    const reached = currentPrice <= target;
+    statusText.textContent = reached ? "Target reached · example alert" : "Waiting for target";
+    statusText.classList.toggle("alert", reached);
+    noteText.textContent = reached
+      ? "Example alert: the current price is at or below your target."
+      : "The alert will appear when the example price is at or below your target.";
+  }
+  slider.addEventListener("input", updatePriceDemo);
+  stepButton.addEventListener("click", () => {
+    currentPrice = Math.max(500, currentPrice - 100);
+    updatePriceDemo();
+  });
+  resetButton?.addEventListener("click", () => {
+    currentPrice = startingPrice;
+    slider.value = String(startingTarget);
+    updatePriceDemo();
+  });
+  updatePriceDemo();
+})();
