@@ -17,12 +17,12 @@
   safe(".site-header", ["glass-surface", "glass-nav"]);
   safe(".mobile-nav", ["glass-mobile-nav"]);
   safe(".flow-panel", ["glass-surface", "glass-strong", "glass-diagram"]);
-  safe(".hero-side .spec-grid > div", ["glass-surface", "glass-hover"]);
+  safe(".hero-side .spec-grid > div", ["glass-surface", "glass-strong", "glass-hover"]);
   safe(".status", ["glass-surface"]);
-  safe(".project-card", ["glass-surface", "glass-sheen", "glass-spotlight", "glass-hover"]);
-  safe(".skill-card", ["glass-surface", "glass-sheen", "glass-spotlight", "glass-hover"]);
-  safe(".cert-grid > *", ["glass-surface", "glass-hover"]);
-  safe(".more-card", ["glass-surface", "glass-hover"]);
+  safe(".project-card", ["glass-surface", "glass-strong", "glass-sheen", "glass-spotlight", "glass-hover"]);
+  safe(".skill-card", ["glass-surface", "glass-strong", "glass-sheen", "glass-spotlight", "glass-hover"]);
+  safe(".cert-grid > *", ["glass-surface", "glass-strong", "glass-hover"]);
+  safe(".more-card", ["glass-surface", "glass-strong", "glass-hover"]);
   safe(".theme-toggle", ["glass-toggle"]);
   safe(".toast", ["glass-toast"]);
 
