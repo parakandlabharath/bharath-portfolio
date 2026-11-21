@@ -1,0 +1,80 @@
+/* Glass & motion enhancement layer — remove this file to undo these effects. */
+:root{
+  --glass-blur:18px;
+  --glass-tint-dark:rgba(255,255,255,.06);
+  --glass-border-dark:rgba(255,255,255,.12);
+  --glass-highlight-dark:rgba(255,255,255,.18);
+  --glass-shadow-dark:rgba(0,0,0,.35);
+  --glass-tint-light:rgba(255,255,255,.62);
+  --glass-border-light:rgba(0,0,0,.08);
+  --glass-highlight-light:rgba(255,255,255,.9);
+  --glass-shadow-light:rgba(20,20,30,.10);
+  --glass-strong-dark:rgba(25,27,25,.78);
+  --glass-strong-light:rgba(255,255,255,.78);
+  --motion-ease:cubic-bezier(.16,1,.3,1);
+  --motion-reveal:760ms;
+  --motion-hover:200ms;
+  --motion-stagger:70ms;
+  --motion-distance:24px;
+  --motion-orb-strength:.15;
+  --motion-orb-speed:36s;
+  --motion-sheen:900ms;
+}
+:root{--glass-tint:var(--glass-tint-dark);--glass-border:var(--glass-border-dark);--glass-highlight:var(--glass-highlight-dark);--glass-shadow:var(--glass-shadow-dark);--glass-strong:var(--glass-strong-dark)}
+:root[data-theme="light"]{--glass-tint:var(--glass-tint-light);--glass-border:var(--glass-border-light);--glass-highlight:var(--glass-highlight-light);--glass-shadow:var(--glass-shadow-light);--glass-strong:var(--glass-strong-light)}
+/* The fixed atmosphere stays behind content and never catches pointer input. */
+.glass-ambient{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;contain:paint}
+.glass-orb{position:absolute;border-radius:50%;background:radial-gradient(circle,rgba(255,106,43,var(--motion-orb-strength)) 0%,rgba(255,106,43,0) 72%);will-change:transform;animation:glassOrbDrift var(--motion-orb-speed) ease-in-out infinite alternate}
+.glass-orb.orb-one{width:min(56vw,680px);height:min(56vw,680px);left:-18%;top:-22%;animation-delay:-7s}
+.glass-orb.orb-two{width:min(46vw,520px);height:min(46vw,520px);right:-18%;top:32%;animation-delay:-19s}
+.glass-orb.orb-three{width:min(38vw,430px);height:min(38vw,430px);left:28%;bottom:-22%;background:radial-gradient(circle,rgba(191,150,115,calc(var(--motion-orb-strength)*.62)) 0%,rgba(191,150,115,0) 72%);animation-delay:-12s}
+.glass-grain{position:absolute;inset:0;opacity:.035;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.38'/%3E%3C/svg%3E;background-size:180px 180px}
+@keyframes glassOrbDrift{0%{transform:translate3d(-12px,-8px,0)}50%{transform:translate3d(22px,18px,0)}100%{transform:translate3d(8px,32px,0)}}
+.glass-surface{position:relative;isolation:isolate;border:1px solid var(--glass-border);border-radius:20px;background:var(--glass-tint);-webkit-backdrop-filter:blur(var(--glass-blur)) saturate(150%);backdrop-filter:blur(var(--glass-blur)) saturate(150%);box-shadow:0 14px 38px var(--glass-shadow),inset 0 1px 0 var(--glass-highlight);transition:transform var(--motion-hover) var(--motion-ease),border-color var(--motion-hover),background-color 300ms,box-shadow var(--motion-hover)}
+.glass-strong{background:var(--glass-strong)}
+.glass-sheen{overflow:hidden}
+.glass-sheen::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(110deg,transparent 20%,rgba(255,255,255,.08) 42%,rgba(255,255,255,.16) 50%,rgba(255,255,255,.04) 58%,transparent 80%);transform:translateX(-130%);transition:transform var(--motion-sheen) var(--motion-ease)}
+.glass-sheen:hover::after{transform:translateX(130%)}
+.glass-spotlight{--spot-x:50%;--spot-y:50%;background-image:radial-gradient(240px circle at var(--spot-x) var(--spot-y),rgba(255,106,43,.10),transparent 70%),linear-gradient(var(--glass-tint),var(--glass-tint));background-color:var(--glass-tint)}
+.glass-hover:hover{transform:translateY(-4px) scale(1.02);border-color:rgba(255,106,43,.32);box-shadow:0 20px 42px var(--glass-shadow),inset 0 1px 0 var(--glass-highlight)}
+.glass-nav{position:relative;transition:transform 300ms var(--motion-ease),box-shadow 300ms,background-color 300ms,border-color 300ms}
+.glass-nav::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;background:var(--glass-strong);opacity:0;transition:opacity 300ms}
+.glass-nav.scrolled::before{opacity:1}
+.glass-nav.nav-hidden{transform:translateY(-110%)}
+.glass-active-link{background:rgba(255,106,43,.11);border-radius:999px;transition:background-color 200ms}
+.glass-mobile-nav{background:var(--glass-strong);-webkit-backdrop-filter:blur(12px) saturate(140%);backdrop-filter:blur(12px) saturate(140%);border-top:1px solid var(--glass-border)}
+.glass-mobile-nav a{opacity:0;transform:translateY(12px);transition:opacity 300ms,transform 450ms var(--motion-ease)}
+.glass-mobile-nav.open a{opacity:1;transform:translateY(0)}
+.glass-mobile-nav.open a:nth-child(1){transition-delay:0ms}.glass-mobile-nav.open a:nth-child(2){transition-delay:70ms}.glass-mobile-nav.open a:nth-child(3){transition-delay:140ms}.glass-mobile-nav.open a:nth-child(4){transition-delay:210ms}.glass-mobile-nav.open a:nth-child(5){transition-delay:280ms}
+.glass-toggle{background:var(--glass-tint);border:1px solid var(--glass-border);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:inset 0 1px 0 var(--glass-highlight);transition:background-color 300ms,border-color 300ms,color 300ms,transform 200ms}
+.glass-toast{background:var(--glass-strong);border:1px solid var(--glass-border);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:0 12px 32px var(--glass-shadow),inset 0 1px 0 var(--glass-highlight);transform:translateY(16px);opacity:0;transition:transform 300ms var(--motion-ease),opacity 300ms}
+.glass-toast.show{transform:translateY(0);opacity:1}
+.glass-reveal{opacity:0;transform:translateY(var(--motion-distance));transition:opacity var(--motion-reveal) var(--motion-ease),transform var(--motion-reveal) var(--motion-ease)}
+.glass-reveal.is-in{opacity:1;transform:translateY(0)}
+.glass-hero-line{overflow:hidden;clip-path:inset(0 0 100%);opacity:0;transform:translateY(20px);transition:clip-path 720ms var(--motion-ease),opacity 650ms,transform 720ms var(--motion-ease)}
+.glass-hero-line.is-in{clip-path:inset(0);opacity:1;transform:translateY(0)}
+.glass-hero-item{opacity:0;transform:translateY(24px) scale(.96);transition:opacity 720ms var(--motion-ease),transform 720ms var(--motion-ease)}
+.glass-hero-item.is-in{opacity:1;transform:translateY(0) scale(1)}
+.glass-arrow{display:inline-block;transition:transform 200ms var(--motion-ease)}
+a:hover .glass-arrow,button:hover .glass-arrow{transform:translateX(3px)}
+.glass-link{position:relative}
+.glass-link::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform 220ms var(--motion-ease)}
+.glass-link:hover::after{transform:scaleX(1)}
+.glass-magnetic{will-change:transform;transition:transform 180ms var(--motion-ease)}
+.glass-diagram .flow-line{stroke-dasharray:200;stroke-dashoffset:200;transition:stroke-dashoffset 850ms var(--motion-ease)}
+.glass-diagram.is-in .flow-line{stroke-dashoffset:0}
+.glass-diagram .flow-node{opacity:0;transition:opacity 450ms var(--motion-ease)}
+.glass-diagram.is-in .flow-node{opacity:1}
+.glass-diagram.is-in .flow-node:nth-of-type(1){transition-delay:80ms}.glass-diagram.is-in .flow-node:nth-of-type(2){transition-delay:150ms}.glass-diagram.is-in .flow-node:nth-of-type(3){transition-delay:220ms}.glass-diagram.is-in .flow-node:nth-of-type(4){transition-delay:290ms}.glass-diagram.is-in .flow-node:nth-of-type(5){transition-delay:360ms}
+.glass-diagram .flow-dot{opacity:0}
+.glass-diagram.is-in .flow-dot{opacity:1;animation:glassFlowDot 3.2s 500ms linear infinite}
+@keyframes glassFlowDot{0%{transform:translateY(0)}100%{transform:translateY(196px)}}
+.glass-cursor{position:fixed;width:180px;height:180px;border-radius:50%;pointer-events:none;z-index:5;opacity:0;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(255,106,43,.09),transparent 68%);transition:opacity 180ms;will-change:transform}
+.glass-cursor.is-active{opacity:1}
+.glass-progress{position:fixed;top:0;left:0;height:2px;width:100%;transform-origin:left;transform:scaleX(0);background:var(--accent);z-index:150;pointer-events:none}
+.glass-orb-parallax{will-change:transform}
+@media(hover:hover) and (pointer:fine){.glass-hover:hover{transform:translateY(-4px) scale(1.02)}}
+@media(max-width:767px){:root{--glass-blur:11px}.glass-hover:hover{transform:none}.glass-hero-item{transform:translateY(12px) scale(.99)}.glass-cursor{display:none!important}.glass-mobile-nav{background:var(--glass-strong)}.glass-strong{background:var(--glass-strong)}}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.glass-surface,.glass-toggle,.glass-toast,.glass-mobile-nav{background:var(--glass-strong);box-shadow:0 14px 38px var(--glass-shadow);}}
+@media(prefers-reduced-transparency:reduce),(prefers-contrast:more){.glass-surface,.glass-toggle,.glass-toast,.glass-mobile-nav{background:var(--glass-strong);-webkit-backdrop-filter:none;backdrop-filter:none;border-color:var(--ink)}.glass-ambient{display:none}}
+@media(prefers-reduced-motion:reduce){.glass-orb,.glass-cursor,.glass-sheen::after,.glass-hero-line,.glass-hero-item,.glass-reveal,.glass-diagram .flow-dot{animation:none!important;transition:opacity 160ms!important;transform:none!important;clip-path:none!important;opacity:1!important}.glass-progress{transition:none}.glass-diagram .flow-line{stroke-dashoffset:0!important}.glass-diagram .flow-node{opacity:1!important}.glass-magnetic{transform:none!important}}
