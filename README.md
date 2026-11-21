@@ -1,6 +1,14 @@
 # Parakandla Bharath — Portfolio
 
-A responsive personal portfolio built with semantic HTML, CSS and vanilla JavaScript. There is no framework, package installation or build step.
+A responsive personal portfolio built with semantic HTML, CSS and vanilla JavaScript. It uses a small, documented design system and has no build step.
+
+## Design system
+
+- **Framework file:** `css/design-system.css` — design tokens, spacing scale, radius, shadows, layout primitives, surface/card/button/chip utilities, and reduced-motion defaults.
+- **Visual theme:** warm cream, charcoal, coral accent, muted supporting colors.
+- **Typography:** DM Sans for UI/body, Instrument Serif for editorial emphasis, JetBrains Mono for metadata.
+- **Page styles:** `css/styles.css` — portfolio-specific composition and art direction.
+- **Framework docs:** `DESIGN_SYSTEM.md` — token reference, component recipes, usage rules.
 
 ## Run locally
 
@@ -9,58 +17,57 @@ A responsive personal portfolio built with semantic HTML, CSS and vanilla JavaSc
 3. Start a local server with the Live Server extension, or run `python -m http.server 8000` from the project folder.
 4. Visit `http://localhost:8000`.
 
-Opening `index.html` directly also works for the basic page, but a local server is recommended for testing.
+Opening `index.html` directly works for basic viewing, but a local server is recommended.
 
 ## Project structure
 
 ```
 .
 ├── index.html
-├── css/styles.css
+├── resume.html
+├── css/
+│   ├── styles.css
+│   └── design-system.css
 ├── js/main.js
 ├── assets/favicon.svg
 ├── resume.pdf
+├── DESIGN_SYSTEM.md
 ├── robots.txt
 └── sitemap.xml
 ```
 
-GSAP 3.12.5, ScrollTrigger 3.12.5 and Lenis 1.1.20 are loaded from pinned CDNs. If a CDN is unavailable, the content remains readable and the page falls back to native scrolling.
+GSAP 3.12.5, ScrollTrigger 3.12.5 and Lenis 1.1.20 are loaded from pinned CDNs. If a CDN is unavailable, content remains readable and native scrolling is available.
 
 ## Personalise before sharing
 
-- Replace every `[ADD ...]` placeholder with verified project, internship, database, tool and certification details.
+- Verify project descriptions, internship details and certification titles.
 - Add your actual PDF as `resume.pdf` in the repository root.
-- Add the Full-Stack Calculator App source URL and the two missing live demo URLs if they exist.
-- Add one accurate sentence for each item in More Work.
-- Add a portrait only if you want one; no stock image is used.
-
-Do not publish unverified features, metrics or credentials.
+- Add the Calculator repository URL and live demo URLs if they exist.
+- Replace any generic repository destinations in the More Work section with project-specific links.
+- Do not publish unverified features, metrics or credentials.
 
 ## Edit the content
 
-Most copy and links are in `index.html`. Update styles and design tokens at the top of `css/styles.css`. Interactions are split into small functions in `js/main.js`: theme, menu, Lenis, intro, reveals, projects, hover, cursor, contact and navigation.
-
-The contact email is assembled in JavaScript from two strings rather than printed in the HTML source. Update those two values in `initContact()` if the address changes.
+Most copy and links are in `index.html`. Update the design tokens in `css/design-system.css` and page-specific styling in `css/styles.css`. Interactions live in `js/main.js`.
 
 ## Deploy with GitHub Pages
 
-1. Push the repository to GitHub.
-2. Open **Settings → Pages**.
-3. Under **Build and deployment**, choose **Deploy from a branch**.
-4. Select `main` and `/ (root)`, then save.
-5. Wait for the Pages deployment to finish. The site URL is:
-   `https://parakandlabharath.github.io/bharath-portfolio/`
+1. Open **Settings → Pages**.
+2. Under **Build and deployment**, choose **Deploy from a branch**.
+3. Select `main` and `/ (root)`, then save.
+4. Wait for the Pages deployment to finish.
+
+Site URL: `https://parakandlabharath.github.io/bharath-portfolio/`
 
 No build command is required.
 
 ## Accessibility and motion
 
-- Skip link, semantic landmarks, keyboard-friendly mobile navigation and visible focus styles.
-- The menu closes with Escape and traps Tab navigation while open.
-- Reduced-motion preference disables smooth scrolling, project pinning, marquee motion, parallax-like hover movement and custom cursor.
-- Content remains visible when JavaScript or animation CDNs fail.
-- Touch devices use a normal project stack; desktop-only hover effects are disabled on coarse pointers.
+- Skip link, semantic landmarks, keyboard-friendly navigation and visible focus styles.
+- Reduced-motion preference limits motion.
+- Content remains visible if animation libraries fail.
+- Touch devices use normal stacked layouts; hover effects are limited to appropriate pointer devices.
 
 ## SEO
 
-The page includes a descriptive title, meta description, canonical URL, Open Graph and Twitter metadata, Person JSON-LD, favicon, robots.txt and sitemap.xml. Update canonical URLs if the deployment address changes.
+Includes descriptive title, meta description, canonical URL, Open Graph metadata, favicon, robots.txt and sitemap.xml. Update canonical URLs if the deployment address changes.
