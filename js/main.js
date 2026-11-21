@@ -59,7 +59,7 @@
   copyButton?.addEventListener("click", async () => {
     try {
       await navigator.clipboard.writeText(email);
-      showToast("Email copied");
+      showToast("Copied ✓");
     } catch (error) {
       // If clipboard access is blocked, show the email so it can still be copied.
       showToast(email);
