@@ -96,7 +96,25 @@
             <div class="decision"><small>DECISIONS & TRADE-OFFS</small><p>Keep the task workflow straightforward first, then expand features as the core flow becomes easier to test.</p></div>
             <div class="next-step"><small>NEXT IMPROVEMENT</small><p>Improve input validation and add focused tests around task updates.</p></div>
             <div class="project-links"><a class="text-link" href="https://github.com/parakandlabharath/Code-Quest" target="_blank" rel="noopener">Source code ↗</a><span class="coming">Live demo · Coming soon</span></div>
-            <div class="demo-placeholder"><small>INTERACTIVE MINI DEMO / PASS 3</small><p>Kanban board and example REST request will be interactive in the next pass.</p></div>
+            <div class="demo-box" aria-label="Kanban browser simulation">
+              <div class="demo-heading"><div><small>INTERACTIVE SIMULATION</small><strong>Task board</strong></div><button class="demo-reset" type="button" data-board-reset>Reset board</button></div>
+              <p class="demo-disclaimer">Example simulation, runs in your browser. Not the live app.</p>
+              <div class="kanban-demo" id="kanban-demo">
+                <div class="kanban-column" data-column="todo"><h4>To Do <span data-count>0</span></h4><div class="kanban-list" data-list="todo"></div></div>
+                <div class="kanban-column" data-column="doing"><h4>In Progress <span data-count>0</span></h4><div class="kanban-list" data-list="doing"></div></div>
+                <div class="kanban-column" data-column="done"><h4>Done <span data-count>0</span></h4><div class="kanban-list" data-list="done"></div></div>
+              </div>
+              <div class="terminal-demo"><div class="terminal-top"><span>EXAMPLE REST EXCHANGE</span><span>● ● ●</span></div><pre aria-live="polite" id="rest-terminal">POST /api/tasks
+{
+  "title": "Prepare project notes"
+}
+
+201 Created
+{
+  "id": 1,
+  "status": "TODO"
+}</pre></div>
+            </div>
           </div>
         </article>
         <!-- DRAFT: verify — the Problem, Approach, Decisions and Next improvement text for Price Tracking is explanatory portfolio copy, not a feature audit. -->\n        <article class="project-card reveal" id="price-tracking">
@@ -115,7 +133,18 @@
             <div class="decision"><small>DECISIONS & TRADE-OFFS</small><p>Use a clear target comparison before adding more complex product tracking features.</p></div>
             <div class="next-step"><small>NEXT IMPROVEMENT</small><p>Make the price-check path easier to test with sample product data.</p></div>
             <div class="project-links"><a class="text-link" href="https://github.com/parakandlabharath/Online-price-tracking" target="_blank" rel="noopener">Source code ↗</a><span class="coming">Live demo · Coming soon</span></div>
-            <div class="demo-placeholder"><small>INTERACTIVE MINI DEMO / PASS 3</small><p>Target price slider and example alert state will be interactive in the next pass.</p></div>
+            <div class="demo-box" aria-label="Price alert browser simulation">
+              <div class="demo-heading"><div><small>INTERACTIVE SIMULATION</small><strong>Target price watch</strong></div><button class="demo-reset" type="button" data-price-reset>Reset</button></div>
+              <p class="demo-disclaimer">Example simulation, runs in your browser. Not the live app.</p>
+              <div class="price-demo">
+                <div class="price-current"><small>EXAMPLE CURRENT PRICE</small><strong id="sim-price">₹1,200</strong><span id="price-status" class="price-status">Waiting for target</span></div>
+                <label class="target-label" for="target-price">Target price <strong id="target-display">₹900</strong></label>
+                <input id="target-price" type="range" min="500" max="1500" step="50" value="900">
+                <div class="range-labels"><span>₹500</span><span>₹1,500</span></div>
+                <button type="button" class="button button-primary price-step" id="price-step">Step price ↓</button>
+                <p class="price-note" id="price-note" aria-live="polite">The alert will appear when the example price is at or below your target.</p>
+              </div>
+            </div>
           </div>
         </article>
         <!-- DRAFT: verify — calculator flow and next-improvement notes are drafted from the supplied project summary. -->\n        <article class="project-card reveal" id="calculator">
