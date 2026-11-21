@@ -78,3 +78,47 @@ a:hover .glass-arrow,button:hover .glass-arrow{transform:translateX(3px)}
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.glass-surface,.glass-toggle,.glass-toast,.glass-mobile-nav{background:var(--glass-strong);box-shadow:0 14px 38px var(--glass-shadow);}}
 @media(prefers-reduced-transparency:reduce),(prefers-contrast:more){.glass-surface,.glass-toggle,.glass-toast,.glass-mobile-nav{background:var(--glass-strong);-webkit-backdrop-filter:none;backdrop-filter:none;border-color:var(--ink)}.glass-ambient{display:none}}
 @media(prefers-reduced-motion:reduce){.glass-orb,.glass-cursor,.glass-sheen::after,.glass-hero-line,.glass-hero-item,.glass-reveal,.glass-diagram .flow-dot{animation:none!important;transition:opacity 160ms!important;transform:none!important;clip-path:none!important;opacity:1!important}.glass-progress{transition:none}.glass-diagram .flow-line{stroke-dashoffset:0!important}.glass-diagram .flow-node{opacity:1!important}.glass-magnetic{transform:none!important}}
+
+
+/* LIQUID GLASS finish: warmer reflections, curved rim lighting and layered depth. */
+:root{
+  --liquid-rim:rgba(255,255,255,.24);
+  --liquid-reflection:rgba(255,255,255,.11);
+  --liquid-warm-reflection:rgba(255,106,43,.075);
+  --liquid-edge-glow:rgba(255,106,43,.12);
+}
+:root[data-theme="light"]{
+  --liquid-rim:rgba(255,255,255,.88);
+  --liquid-reflection:rgba(255,255,255,.48);
+  --liquid-warm-reflection:rgba(255,106,43,.045);
+  --liquid-edge-glow:rgba(255,106,43,.08);
+}
+/* Multi-layer highlights create the optical depth of polished, curved glass. */
+.glass-liquid{
+  background-image:
+    linear-gradient(145deg,var(--liquid-reflection) 0%,transparent 28%,transparent 68%,var(--liquid-warm-reflection) 100%),
+    linear-gradient(180deg,rgba(255,255,255,.035),transparent 32%),
+    linear-gradient(120deg,transparent 38%,rgba(255,255,255,.035) 48%,transparent 58%);
+  background-color:var(--glass-tint);
+  border-color:var(--liquid-rim);
+  box-shadow:
+    0 16px 42px var(--glass-shadow),
+    0 0 24px var(--liquid-edge-glow),
+    inset 0 1px 0 var(--glass-highlight),
+    inset 0 -1px 0 rgba(255,255,255,.035),
+    inset 1px 0 0 rgba(255,255,255,.045);
+}
+.glass-liquid.glass-strong{background-color:var(--glass-strong)}
+.glass-liquid.glass-hover:hover{
+  border-color:rgba(255,255,255,.34);
+  box-shadow:0 22px 48px var(--glass-shadow),0 0 28px var(--liquid-edge-glow),inset 0 1px 0 var(--glass-highlight),inset 0 -1px 0 rgba(255,255,255,.05);
+}
+.glass-liquid.glass-toggle,.glass-liquid.glass-toast,.glass-liquid.glass-mobile-nav{
+  background-image:linear-gradient(145deg,var(--liquid-reflection),transparent 40%,var(--liquid-warm-reflection));  
+}
+@media(max-width:767px){
+  .glass-liquid{box-shadow:0 12px 28px var(--glass-shadow),inset 0 1px 0 var(--glass-highlight)}
+}
+@media(prefers-reduced-transparency:reduce),(prefers-contrast:more){
+  .glass-liquid{background-image:none;box-shadow:0 12px 28px var(--glass-shadow),inset 0 1px 0 var(--glass-highlight)}
+}
