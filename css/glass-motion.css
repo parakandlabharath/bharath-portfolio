@@ -35,13 +35,13 @@
 .glass-sheen{overflow:hidden}
 .glass-sheen::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(110deg,transparent 20%,rgba(255,255,255,.08) 42%,rgba(255,255,255,.16) 50%,rgba(255,255,255,.04) 58%,transparent 80%);transform:translateX(-130%);transition:transform var(--motion-sheen) var(--motion-ease)}
 .glass-sheen:hover::after{transform:translateX(130%)}
-.glass-spotlight{--spot-x:50%;--spot-y:50%;background-image:radial-gradient(240px circle at var(--spot-x) var(--spot-y),rgba(255,106,43,.10),transparent 70%),linear-gradient(var(--glass-tint),var(--glass-tint));background-color:var(--glass-tint)}
+.glass-spotlight{--spot-x:50%;--spot-y:50%;background-image:radial-gradient(240px circle at var(--spot-x) var(--spot-y),rgba(255,106,43,.10),transparent 70%);background-color:var(--glass-tint)}
 .glass-hover:hover{transform:translateY(-4px) scale(1.02);border-color:rgba(255,106,43,.32);box-shadow:0 20px 42px var(--glass-shadow),inset 0 1px 0 var(--glass-highlight)}
 .glass-nav{position:relative;transition:transform 300ms var(--motion-ease),box-shadow 300ms,background-color 300ms,border-color 300ms}
 .glass-nav::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;background:var(--glass-strong);opacity:0;transition:opacity 300ms}
 .glass-nav.scrolled::before{opacity:1}
 .glass-nav.nav-hidden{transform:translateY(-110%)}
-.glass-active-link{background:rgba(255,106,43,.11);border-radius:999px;transition:background-color 200ms}
+.glass-active-link{color:var(--accent);transition:color 200ms}.glass-nav-indicator{position:absolute;left:0;top:50%;height:30px;width:1px;border-radius:999px;background:rgba(255,106,43,.12);border:1px solid rgba(255,106,43,.16);transform-origin:left center;transform:translate(0,-50%) scaleX(0);transition:transform 360ms var(--motion-ease);pointer-events:none;z-index:0}
 .glass-mobile-nav{background:var(--glass-strong);-webkit-backdrop-filter:blur(12px) saturate(140%);backdrop-filter:blur(12px) saturate(140%);border-top:1px solid var(--glass-border)}
 .glass-mobile-nav a{opacity:0;transform:translateY(12px);transition:opacity 300ms,transform 450ms var(--motion-ease)}
 .glass-mobile-nav.open a{opacity:1;transform:translateY(0)}
