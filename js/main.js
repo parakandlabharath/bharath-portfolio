@@ -1,11 +1,102 @@
-(()=>{const root=document.documentElement,theme=document.querySelector('.theme'),menu=document.querySelector('.menu'),mobile=document.querySelector('.mobile'),progress=document.querySelector('.progress'),reduced=matchMedia('(prefers-reduced-motion: reduce)').matches,fine=matchMedia('(pointer:fine)').matches;let toastTimer;
-try{if(localStorage.getItem('portfolio-theme')==='dark')root.dataset.theme='dark'}catch{}
-function syncTheme(){const dark=root.dataset.theme==='dark';if(theme){theme.textContent=dark?'☀':'◐';theme.setAttribute('aria-pressed',String(dark));theme.setAttribute('aria-label',dark?'Switch to light theme':'Switch to dark theme')}}
-syncTheme();theme?.addEventListener('click',()=>{root.dataset.theme=root.dataset.theme==='dark'?'light':'dark';try{localStorage.setItem('portfolio-theme',root.dataset.theme)}catch{}syncTheme()});
-const close=()=>{mobile?.classList.remove('open');menu?.setAttribute('aria-expanded','false');menu?.setAttribute('aria-label','Open navigation');menu&&(menu.textContent='☰')};menu?.addEventListener('click',()=>{const open=menu.getAttribute('aria-expanded')!=='true';menu.setAttribute('aria-expanded',String(open));mobile?.classList.toggle('open',open);menu.textContent=open?'×':'☰';menu.setAttribute('aria-label',open?'Close navigation':'Open navigation')});mobile?.querySelectorAll('a').forEach(a=>a.addEventListener('click',close));document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
-const email='parakandlabharath@gmail.com',copy=document.querySelector('#copyEmail'),toast=document.querySelector('.toast');copy?.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(email);toast.textContent='Email copied'}catch{toast.textContent=email}toast?.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast?.classList.remove('show'),2000)});
-const yr=document.querySelector('#year');if(yr)yr.textContent=new Date().getFullYear();
-function scrollProgress(){const max=document.documentElement.scrollHeight-innerHeight;progress.style.width=(max>0?scrollY/max*100:0)+'%'}addEventListener('scroll',scrollProgress,{passive:true});scrollProgress();
-const canvas=document.querySelector('#network'),ctx=canvas?.getContext('2d');if(canvas&&ctx){let pts=[];function resize(){const dpr=Math.min(devicePixelRatio||1,1.5);canvas.width=innerWidth*dpr;canvas.height=innerHeight*dpr;canvas.style.width=innerWidth+'px';canvas.style.height=innerHeight+'px';ctx.setTransform(dpr,0,0,dpr,0,0);pts=Array.from({length:Math.min(48,Math.floor(innerWidth/24))},()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,vx:(Math.random()-.5)*.22,vy:(Math.random()-.5)*.22}))}resize();let frame;function draw(){ctx.clearRect(0,0,innerWidth,innerHeight);pts.forEach((p,i)=>{if(!reduced){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>innerWidth)p.vx*=-1;if(p.y<0||p.y>innerHeight)p.vy*=-1}for(let j=i+1;j<pts.length;j++){const q=pts[j],d=Math.hypot(p.x-q.x,p.y-q.y);if(d<145){ctx.strokeStyle='rgba(226,91,49,'+(0.14*(1-d/145))+')';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);ctx.stroke()}}ctx.fillStyle='rgba(226,91,49,.4)';ctx.beginPath();ctx.arc(p.x,p.y,1.7,0,Math.PI*2);ctx.fill()});if(!reduced)frame=requestAnimationFrame(draw)}draw();addEventListener('resize',()=>{cancelAnimationFrame(frame);resize();draw()})}
-if(!reduced&&window.gsap&&window.ScrollTrigger){gsap.registerPlugin(ScrollTrigger);gsap.utils.toArray('.reveal').forEach(el=>gsap.to(el,{opacity:1,y:0,duration:.8,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 90%',once:true}}));gsap.to('.price-ui .line',{strokeDashoffset:0,duration:1.8,ease:'power2.out',scrollTrigger:{trigger:'.price-ui',start:'top 85%',once:true}});if(fine&&innerWidth>900&&window.Lenis){try{const lenis=new Lenis({duration:1.1,smoothWheel:true,syncTouch:false});lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(t=>lenis.raf(t*1000));gsap.ticker.lagSmoothing(0)}catch(e){}}}else document.querySelectorAll('.reveal').forEach(el=>{el.style.opacity='1';el.style.transform='none'});
+(() => {
+  const root = document.documentElement;
+  const themeButton = document.querySelector(".theme-toggle");
+  const menuButton = document.querySelector(".menu-toggle");
+  const mobileNav = document.querySelector(".mobile-nav");
+  const progress = document.querySelector(".scroll-progress");
+  const toast = document.querySelector(".toast");
+
+  // Keep the email assembled here so it does not appear as plain text in the HTML.
+  const email = ["kumarb57871", "gmail.com"].join("@");
+  const emailLink = document.querySelector("#email-link");
+  const copyButton = document.querySelector("#copy-email");
+  let toastTimer;
+
+  // Load a theme choice if one was saved earlier. Dark is the default.
+  try {
+    const savedTheme = localStorage.getItem("portfolio-theme");
+    if (savedTheme === "light" || savedTheme === "dark") root.dataset.theme = savedTheme;
+  } catch (error) {
+    // The page still works if browser storage is unavailable.
+  }
+
+  function updateThemeButton() {
+    const light = root.dataset.theme === "light";
+    themeButton.textContent = light ? "☾" : "☀";
+    themeButton.setAttribute("aria-label", light ? "Switch to dark theme" : "Switch to light theme");
+    themeButton.setAttribute("aria-pressed", String(light));
+  }
+
+  updateThemeButton();
+  themeButton?.addEventListener("click", () => {
+    root.dataset.theme = root.dataset.theme === "light" ? "dark" : "light";
+    try {
+      localStorage.setItem("portfolio-theme", root.dataset.theme);
+    } catch (error) {
+      // Theme switching still works for this page if storage is blocked.
+    }
+    updateThemeButton();
+  });
+
+  // Make the contact email and mail link from the same value.
+  if (emailLink) {
+    emailLink.href = "mailto:" + email;
+    emailLink.textContent = email;
+    const arrow = document.createElement("span");
+    arrow.textContent = "↗";
+    arrow.setAttribute("aria-hidden", "true");
+    emailLink.append(arrow);
+  }
+
+  function showToast(message) {
+    if (!toast) return;
+    toast.textContent = message;
+    toast.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove("show"), 2200);
+  }
+
+  copyButton?.addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(email);
+      showToast("Email copied");
+    } catch (error) {
+      // If clipboard access is blocked, show the email so it can still be copied.
+      showToast(email);
+    }
+  });
+
+  // Open and close the small-screen menu.
+  function closeMenu() {
+    mobileNav?.classList.remove("open");
+    menuButton?.setAttribute("aria-expanded", "false");
+    menuButton?.setAttribute("aria-label", "Open navigation");
+    if (menuButton) menuButton.textContent = "☰";
+  }
+
+  menuButton?.addEventListener("click", () => {
+    const open = menuButton.getAttribute("aria-expanded") !== "true";
+    menuButton.setAttribute("aria-expanded", String(open));
+    menuButton.setAttribute("aria-label", open ? "Close navigation" : "Open navigation");
+    mobileNav?.classList.toggle("open", open);
+    menuButton.textContent = open ? "×" : "☰";
+  });
+  mobileNav?.querySelectorAll("a").forEach(link => link.addEventListener("click", closeMenu));
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape") closeMenu();
+  });
+
+  // Update the thin page progress line as the visitor scrolls.
+  function updateProgress() {
+    const pageLength = document.documentElement.scrollHeight - window.innerHeight;
+    const percentage = pageLength > 0 ? (window.scrollY / pageLength) * 100 : 0;
+    if (progress) progress.style.width = Math.min(100, Math.max(0, percentage)) + "%";
+  }
+  window.addEventListener("scroll", updateProgress, { passive: true });
+  window.addEventListener("resize", updateProgress);
+  updateProgress();
+
+  // Keep the copyright year current.
+  const year = document.querySelector("#year");
+  if (year) year.textContent = new Date().getFullYear();
 })();
