@@ -136,7 +136,7 @@
     }
   }
 
-  // Mark the nav link for the section currently being viewed.
+  // Add the enhancement class only after the reveal observer is ready. Without JavaScript, content stays visible.\n  root.classList.add('js');\n\n  // Mark the nav link for the section currently being viewed.
   const sections = document.querySelectorAll("main section[id]");
   const navLinks = document.querySelectorAll(".desktop-nav a, .mobile-nav a");
   if ("IntersectionObserver" in window) {
