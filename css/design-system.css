@@ -1,0 +1,35 @@
+/* Bharath Portfolio Design System — v1
+   Tokens + reusable primitives. Keep page-specific layout in styles.css. */
+:root{
+  --ds-space-1:4px;--ds-space-2:8px;--ds-space-3:12px;--ds-space-4:16px;
+  --ds-space-5:24px;--ds-space-6:32px;--ds-space-7:48px;--ds-space-8:64px;
+  --ds-radius-sm:6px;--ds-radius-md:10px;--ds-radius-lg:16px;--ds-radius-pill:999px;
+  --ds-shadow-soft:0 12px 32px rgba(32,31,29,.06);
+  --ds-shadow-lift:0 20px 44px rgba(32,31,29,.10);
+  --ds-content:1320px;--ds-reading:720px;
+  --ds-motion-fast:160ms;--ds-motion-base:240ms;--ds-motion-slow:600ms;
+}
+:root[data-theme=dark]{
+  --ds-shadow-soft:0 12px 32px rgba(0,0,0,.18);
+  --ds-shadow-lift:0 20px 44px rgba(0,0,0,.28);
+}
+/* Layout primitives */
+.ds-container{width:min(100% - 2*var(--g),var(--ds-content));margin-inline:auto}
+.ds-reading{max-width:var(--ds-reading)}
+.ds-stack{display:flex;flex-direction:column;gap:var(--ds-space-4)}
+.ds-inline{display:flex;align-items:center;flex-wrap:wrap;gap:var(--ds-space-3)}
+.ds-grid{display:grid;gap:var(--ds-space-4)}
+/* Surface, buttons, chips, typography */
+.ds-surface{background:var(--surface);border:1px solid var(--line);border-radius:var(--ds-radius-md);box-shadow:var(--ds-shadow-soft)}
+.ds-card{padding:clamp(20px,3vw,32px);transition:transform var(--ds-motion-base),border-color var(--ds-motion-base),box-shadow var(--ds-motion-base)}
+.ds-card:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--accent) 40%,var(--line));box-shadow:var(--ds-shadow-lift)}
+.ds-button{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:11px 16px;border:1px solid var(--line);border-radius:var(--ds-radius-sm);background:var(--surface);color:var(--ink);font:600 12px var(--sans);text-decoration:none;transition:transform var(--ds-motion-fast),border-color var(--ds-motion-fast),background var(--ds-motion-fast)}
+.ds-button:hover{transform:translateY(-2px);border-color:var(--accent)}
+.ds-button-primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.ds-chip{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);border-radius:var(--ds-radius-pill);padding:6px 10px;background:var(--surface);font:10px var(--mono);letter-spacing:.04em}
+.ds-eyebrow{color:var(--accent);font:10px var(--mono);letter-spacing:.1em;text-transform:uppercase}
+.ds-muted{color:var(--muted)}
+.ds-rule{height:1px;border:0;background:var(--line);margin-block:var(--ds-space-6)}
+/* Motion-safe utility: reveal is only animated when JS enables .js */
+.js .ds-reveal{opacity:0;transform:translateY(18px)}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.js .ds-reveal{opacity:1;transform:none}}
