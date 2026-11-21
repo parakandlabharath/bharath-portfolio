@@ -15,6 +15,11 @@
 
   // Add glass to the existing page elements without changing their content.
   safe(".site-header", ["glass-surface", "glass-nav"]);
+  // Add the richer Liquid Glass finish to existing glass surfaces.
+  safe(".glass-surface", ["glass-liquid"]);
+  safe(".mobile-nav", ["glass-liquid"]);
+  safe(".theme-toggle", ["glass-liquid"]);
+  safe(".toast", ["glass-liquid"]);
   safe(".mobile-nav", ["glass-mobile-nav"]);
   safe(".flow-panel", ["glass-surface", "glass-strong", "glass-diagram"]);
   safe(".hero-side .spec-grid > div", ["glass-surface", "glass-strong", "glass-hover"]);
