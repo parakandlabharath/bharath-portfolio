@@ -156,7 +156,7 @@
   }
 
   function initContact() {
-    const user = 'parakandlabharathkumar';
+    const user = 'parakandlabharath';
     const domain = 'gmail.com';
     const email = user + '@' + domain;
     const link = $('[data-email-link]');
