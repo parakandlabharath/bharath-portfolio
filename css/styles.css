@@ -8,3 +8,15 @@
 /* Canvas stays behind content and never intercepts input. */
 .network-bg{z-index:0;pointer-events:none}
 .header,main,footer{position:relative;z-index:1}
+
+
+/* Final polish: accessible focus states, project anchor, hover feedback and reveal motion */
+.anchor-alias{position:absolute;top:-100px}
+:focus-visible{outline:3px solid var(--accent);outline-offset:4px;border-radius:5px}
+.project,.skills-grid article,.identity,.btn,.resume,.source,.email{transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease}
+.project:hover{transform:translateY(-3px);box-shadow:0 20px 48px #3d2c1b12;border-color:color-mix(in srgb,var(--accent) 32%,var(--line))}
+.skills-grid article:hover{transform:translateY(-2px);border-color:color-mix(in srgb,var(--accent) 32%,var(--line))}
+.btn:hover,.resume:hover{transform:translateY(-1px)}
+.source:hover,.social a:hover,.contact-links a:hover{color:var(--text)}
+.email:hover{border-color:var(--accent)}
+@media(prefers-reduced-motion:reduce){.project,.skills-grid article,.identity,.btn,.resume,.source,.email{transition:none}}
