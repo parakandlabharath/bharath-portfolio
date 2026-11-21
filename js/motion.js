@@ -10,7 +10,7 @@
   const ambient = document.createElement("div");
   ambient.className = "glass-ambient";
   ambient.setAttribute("aria-hidden", "true");
-  ambient.innerHTML = '<span class="glass-orb orb-one"></span><span class="glass-orb orb-two"></span><span class="glass-orb orb-three"></span><span class="glass-grain"></span>';
+  ambient.innerHTML = '<span class="glass-orb-wrap orb-one"><span class="glass-orb"></span></span><span class="glass-orb-wrap orb-two"><span class="glass-orb"></span></span><span class="glass-orb-wrap orb-three"><span class="glass-orb"></span></span><span class="glass-grain"></span>';
   document.body.prepend(ambient);
 
   // Add glass to the existing page elements without changing their content.
@@ -22,7 +22,7 @@
   safe(".project-card", ["glass-surface", "glass-sheen", "glass-spotlight", "glass-hover"]);
   safe(".skill-card", ["glass-surface", "glass-sheen", "glass-spotlight", "glass-hover"]);
   safe(".cert-grid > *", ["glass-surface", "glass-hover"]);
-  safe(".more-work > *", ["glass-surface", "glass-hover"]);
+  safe(".more-card", ["glass-surface", "glass-hover"]);
   safe(".theme-toggle", ["glass-toggle"]);
   safe(".toast", ["glass-toast"]);
 
@@ -33,7 +33,7 @@
   document.body.append(progress);
 
   // Apply reveal motion only after JavaScript has initialized.
-  const revealTargets = document.querySelectorAll(".section-heading h2, .section-heading p, .project-card, .skill-card, .cert-grid > *, .more-work > *, .principles article, .contact-card");
+  const revealTargets = document.querySelectorAll(".section-heading h2, .section-heading p, .project-card, .skill-card, .cert-grid > *, .more-card, .principles article, .contact-card");
   revealTargets.forEach((el, index) => {
     el.classList.add("glass-reveal");
     if (el.matches(".project-card,.skill-card,.cert-grid > *,.more-work > *")) el.style.transitionDelay = ((index % 5) * 65) + "ms";
@@ -156,7 +156,7 @@
 
   // Parallax affects only the ambient orbs, never the text or cards.
   if (!touchMode.matches && !reducedMotion.matches && !reducedTransparency.matches) {
-    const orbs = ambient.querySelectorAll(".glass-orb");
+    const orbs = ambient.querySelectorAll(".glass-orb-wrap");
     window.addEventListener("pointermove", event => {
       const x = (event.clientX / window.innerWidth - .5) * 20;
       const y = (event.clientY / window.innerHeight - .5) * 20;
