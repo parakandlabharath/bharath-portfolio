@@ -7,7 +7,7 @@
   const toast = document.querySelector(".toast");
 
   // Keep the email assembled here so it does not appear as plain text in the HTML.
-  const email = ["kumarb57871", "gmail.com"].join("@");
+  const email = ["parakandlabharath", "gmail.com"].join("@");
   const emailLink = document.querySelector("#email-link");
   const copyButton = document.querySelector("#copy-email");
   let toastTimer;
