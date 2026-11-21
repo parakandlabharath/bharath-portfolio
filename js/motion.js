@@ -30,6 +30,8 @@
   safe(".more-card", ["glass-surface", "glass-strong", "glass-hover"]);
   safe(".theme-toggle", ["glass-toggle"]);
   safe(".toast", ["glass-toast"]);
+  // Reapply after all surface classes are assigned so every card receives the finish.
+  safe(".glass-surface", ["glass-liquid"]);
 
   // Add a scroll progress line separate from the site's existing progress bar.
   const progress = document.createElement("div");
